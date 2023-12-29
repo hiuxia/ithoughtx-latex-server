@@ -1,0 +1,7 @@
+version: '3'
+services:
+  xelatex-server:
+    image: ithoughts-latex
+    container_name: xelatex-server
+    ports:
+      - "8123:8123"

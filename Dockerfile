@@ -4,16 +4,18 @@ FROM texlive/texlive
 
 RUN apt-get update && \ 
     apt-get install -y --no-install-recommends \
-        poppler-utils \
-        vim \
-        python3-pip && \
-    python -m pip install --upgrade pip && \
-    pip install --upgrade tornado
+    poppler-utils \
+    vim \
+    python3-pip \
+    python3-venv && \
+    python3 -m venv /root/venv && \
+    /root/venv/bin/pip install --upgrade pip && \
+    /root/venv/bin/pip install tornado
 
 RUN mkdir -p /root/latex
 WORKDIR /root/latex/
 COPY . .
 
-EXPOSE 8888
+EXPOSE 8123
 
-CMD ["python", "xe-latex-server.py"]
+CMD ["/root/venv/bin/python", "xe-latex-server.py"]

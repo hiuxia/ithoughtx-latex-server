@@ -81,10 +81,10 @@ class XeLaTeXWorker(object):
         f_tex = f_name+".tex"
         f_pdf = f_name+".pdf"
         f_png = f_name+"-1.png"
-        
+
         with open(os.path.join(self.dir, f_tex), 'wb') as f:
             f.write(utf8bytes(source))
-        print('save to tex file. start xelatex_to_png()')    
+        print('save to tex file. start xelatex_to_png()')
         await self.xelatex_to_pdf(f_tex)
         print('back from xelatex_to_pdf()')
         await self.pdf_to_png(f_pdf)
@@ -145,16 +145,16 @@ class MainHandler(tornado.web.RequestHandler):
             # with open(f_png, 'rb') as f:
             #     png = f.read()
         self.write(png)
-        self.set_header("Content-type", "image/png")   
+        self.set_header("Content-type", "image/png")
 
 
 def main():
-    define('port', default=8888, help='run on the given port', type=int)
-    define('address', default='localhost', help='run on the given address', type=str)
+    define('port', default=8123, help='run on the given port', type=int)
+    define('address', default='192.168.110.226', help='run on the given address', type=str)
     # define('docker', default=False, help='run with docker', type=bool)
     # define('skip_docker_pull', default=False, help='skip pulling latest texbox docker image', type=bool)
     parse_command_line()
-    
+
     backend = XeLaTeXBackend()
 
     application = tornado.web.Application([
@@ -164,9 +164,7 @@ def main():
     http_server.listen(options.port) #, address=options.address)
     print(f'Xe-latex-server started on: {options.address}:{options.port}')
     tornado.ioloop.IOLoop.current().start()
-    
+
 
 if __name__ == '__main__':
     main()
-
-

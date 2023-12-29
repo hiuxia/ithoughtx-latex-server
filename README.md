@@ -26,15 +26,22 @@ docker build -t ithoughts-latex .
 1. Run the image as a container 
 
 ```sh
-docker run -p 8888:8888 --name xelatex-server ithoughts-latex
+docker-compose up -d
 ```
 
 3. Set your latex server in ithoughts.
 
 server: 
 ```
-http://localhost:8888/index.php?tex=%TEX%&scale=%SCALE%
+http://192.168.110.226:8123/index.php?tex=%TEX%&scale=%SCALE%
 ```
+
+>[!note]
+>make sure you set the ip address and ports of your docker host, not localhost in `xe-latex-server.py`'s `main` function.
+
+> ![Alt text](image.png)
+
+> If you changed your docker host ip address, you need to rebuild the docker image and restart the container with `docker-compose up -d` again.
 
 ## Picutre size
 Please use "standalone" as ducument class instead of "article". this will render the latex string into small box, instead of a page of "article", like A4 size. 
